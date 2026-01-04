@@ -1,0 +1,15 @@
+-- use scott;
+-- SELECT ROW_NUMBER() OVER(ORDER BY deptno) as row_num, deptno,ename ,sal from emp;
+-- select ROW_NUMBER() OVER(ORDER BY DISTINCT SAL) from emp;
+-- show databases;
+
+
+drop DATABASE if EXISTS deletable;
+
+CREATE DATABASE deletable;
+
+show DATABASEs;
+
+drop DATABASE if EXISTS deletable;
+
+show DATABASEs;

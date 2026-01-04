@@ -1,0 +1,10 @@
+-- show DATABASEs;
+-- use scott;
+-- show tables;
+-- select * from emp;
+-- DELETE FROM EMP WHERE ENAME='Divyam';
+-- select ename,sal,comm,(sal+ename),(sal+coalesce(comm,'hello')) as TOTAL FROM emp where ename like '%N%';
+-- select avg(Sal),sum(sal),min(sal),max(sal),count(sal) from emp;
+-- select count(sal),sal,sum(sal) from emp group by sal;
+select count(sal),sal,sum(sal) from emp group by sal HAVING sum(sal)>2499;
+

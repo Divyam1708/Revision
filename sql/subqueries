@@ -1,0 +1,97 @@
+-- use scott;
+
+
+-- LEVEL 1
+-- 1.Find employees who earn more salary than JONES.
+-- select ename,sal from emp WHERE sal>(select sal from emp where ename='JONES');
+
+-- 2.Display employees who work in the same department as SMITH.
+-- select empno,ename,deptno from emp WHERE deptno=(select deptno from emp where ename='SMITH');
+
+-- 3.Find the employee(s) with the maximum salary.
+-- select empno,ename,sal from emp where sal=(select max(sal) from emp);
+
+-- 4.Find employees whose salary is less than the average salary.
+-- SELECT avg(Sal) from emp;
+-- select empno,ename,sal from emp where sal<(SELECT avg(sal) from emp);
+
+-- 5.List employees whose job is the same as ALLEN.
+-- select empno,ename,job from emp where job=(SELECT job from emp where ename='ALLEN');
+
+-- 6.Find employees hired after BLAKE.
+-- select hiredate from emp where ename='BLAKE';
+-- select * from emp where hiredate>(select hiredate from emp where ename='BLAKE');
+
+
+
+
+
+
+
+
+-- LEVEL 2
+-- 7.Find employees working in departments located in NEW YORK.
+-- select empno,ename,deptno from emp where deptno in (select deptno from dept where loc='NEW YORK');
+
+-- 8.Find employees whose salary is greater than ANY salary of employees in department 30.
+-- select * from emp where sal>ANY(SELECT (sal) from emp where deptno=30) ;
+
+-- 9.Find employees whose salary is greater than ALL salaries of department 30.
+-- SELECT sal from emp where deptno=30;
+-- select * from emp where sal<ALL(select sal from emp where deptno=30);
+
+-- 10.List employees who are not working in any department that has SALESMANs.
+-- select deptno from emp where job='CLERK';
+-- select * from emp WHERE deptno not in (select deptno from emp where job='SALESMAN');
+
+-- 11.Find employees whose job appears more than once in the EMP table.
+-- select * from emp where job in(select job from emp group by job having count(job)=1);
+-- select * from emp where job not in(select job from emp group by job having count(job)>1);
+
+-- 12.Find departments that have at least one employee.
+-- select * from dept where deptno in(select deptno from emp group by deptno having count(deptno)>1);
+
+
+
+-- 13.Find employees who earn more than the average salary of their own department.
+-- SELECT * from emp as e where sal > (SELECT avg(sal) from emp where deptno=e.deptno);
+
+-- 14.Find employees who are the highest paid in their department.
+-- SELECT ename,sal,deptno from emp as e where sal=(SELECT max(sal) from emp where deptno=e.deptno);
+
+-- 15.Find employees who earn less than the average salary of their department.
+-- select ename,deptno,sal from emp as e where sal<(SELECT avg(sal) from emp where deptno=e.deptno);
+
+-- 16.Find employees who were hired before their manager.
+-- SELECT ename,mgr,hiredate from emp as e where hiredate<(SELECT hiredate from emp where empno=e.mgr);
+
+
+
+-- select ename, sal,deptno from emp as e where sal IN (select sal from emp where deptno=e.deptno and ename like '%A%');
+
+-- select * from emp as e where sal>(select avg(sal) from emp where emp.deptno=e.deptno);
+
+
+-- select * from emp as e where sal> ANY (select sal from emp where emp.deptno=e.deptno);
+
+-- SELECT * from emp as e where sal=(SELECT MAX(Sal) from emp where emp.deptno=e.deptno);
+
+-- SELECT * from emp as e where sal>(SELECT MIN(Sal) from emp where emp.deptno=e.deptno);
+
+
+-- select * FROM emp as e where sal>(SELECT AVG(sal) from emp where emp.hiredate<e.hiredate);
+
+-- select * from emp as e where sal>(select avg(sal) from emp where emp.job=e.job and emp.empno!=e.empno);
+
+-- select * from emp as e where SAL> ALL(select sal from emp where emp.deptno=e.deptno and emp.empno!=e.empno);
+
+
+-- select * from emp as e where sal>(select avg(sal) from emp where emp.deptno=e.deptno and emp.empno!=e.empno) AND sal<(select max(sal) from emp where emp.deptno=e.deptno and emp.empno!=e.empno);
+
+
+-- SELECT * from emp as e where hiredate> ANY (select hiredate from emp where emp.deptno=e.deptno and emp.sal<e.sal and hiredate<e.hiredate);
+
+
+-- select * from emp as e where sal>(select avg(sal) from emp where emp.deptno=e.deptno and emp.job=e.job and emp.empno!=e.empno);
+
+select * from emp as e where sal> (select avg(sal) from emp where emp.deptno=(SELECT deptno from dept where loc='DALLAS'));
